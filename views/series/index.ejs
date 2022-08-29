@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>Mongoose Movies</title>
+</head>
+
+<body>
+    <h1>Series List</h1>
+    <table>
+        <thead>
+            <tr>
+
+            </tr>
+        </thead>
+        <tbody>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>overview</th>
+            <th>poster</th>
+            <th>Firt Air Date</th>
+            <th># episodes</th>
+            <th># season</th>
+            <% series.forEach(function(m){ %>
+                <tr>
+                    <td>
+                        <%= m.name %>
+                    </td>
+                    <td>
+                        <% m.genres.forEach(function(genre){ %>
+                            <%=genre.name %>
+                                <% }) %>
+                    </td>
+                    <td>
+                        <%= m.overview %>
+                    </td>
+                    <td>
+                        <img class="poster" src=" <%= m.poster_path%>" alt="">
+
+                    </td>
+                    <td>
+                        <%= m.first_air_date %>
+                    </td>
+                    <td>
+                        <%= m.number_of_episodes %>
+                    </td>
+                    <td>
+                        <%= m.number_of_seasons %>
+                    </td>
+
+                </tr>
+                <%})%>
+
+        </tbody>
+    </table>
+</body>
+
+</html>
