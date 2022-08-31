@@ -1,14 +1,6 @@
-<!DOCTYPE html>
-<html>
+<%- include('./partials/header') %>
 
-<head>
-  <title>
-    <%= title %>
-  </title>
-  <link rel='stylesheet' href='/stylesheets/style.css' />
-</head>
 
-<body>
   <h1>
     <%= title %>
   </h1>
@@ -18,6 +10,7 @@
   <a href="/movies/new">Add A Movie</a>
   <a href="/series">All Series</a>
   <a href="/series/new">Add A Serie</a>
-</body>
+  <a href="/search">search</a>
 
-</html>
+  
+  <%- include('../partials/footer') %>

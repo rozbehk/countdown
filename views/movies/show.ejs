@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+
+
+    <% console.log(movie) %>
+    <div class="show-top">
+        <div> <img class="show-poster" src=" <%= `https://image.tmdb.org/t/p/original${movie.poster_path}`%>" alt="">
+        </div>
+        <div class="show-details">
+            <h1 class="name-top">
+                <%=movie.title %>
+            </h1>
+
+        </div>
+    </div>
+    <div class="countdown" id="<%= movie.release_date %>">
+        <div id="countdown"></div>
+        <div id="newcountdown"></div>
+    </div>
+    
+    <%- include('../partials/footer') %>

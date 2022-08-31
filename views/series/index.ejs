@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <title>Mongoose Movies</title>
-</head>
-
-<body>
+<%- include('../partials/header') %>
     <h1>Series List</h1>
     <table>
         <thead>
@@ -25,31 +14,35 @@
             <th>Firt Air Date</th>
             <th># episodes</th>
             <th># season</th>
-            <% series.forEach(function(m){ %>
+            <th>Details</th>
+            <% series.forEach(function(serie ){ %>
                 <tr>
                     <td>
-                        <%= m.name %>
+                        <%= serie.name %>
                     </td>
                     <td>
-                        <% m.genres.forEach(function(genre){ %>
+                        <% serie.genres.forEach(function(genre){ %>
                             <%=genre.name %>
                                 <% }) %>
                     </td>
                     <td>
-                        <%= m.overview %>
+                        <%= serie.overview %>
                     </td>
                     <td>
-                        <img class="poster" src=" <%= m.poster_path%>" alt="">
+                        <img class="poster" src=" <%=serie.poster_path%>" alt="">
 
                     </td>
                     <td>
-                        <%= m.first_air_date %>
+                        <%= serie.first_air_date %>
                     </td>
                     <td>
-                        <%= m.number_of_episodes %>
+                        <%= serie.number_of_episodes %>
                     </td>
                     <td>
-                        <%= m.number_of_seasons %>
+                        <%= serie.number_of_seasons %>
+                            </td>
+                            <td>
+                                <a href="/series/<%= serie._id %>">DETAILS</a>
                     </td>
 
                 </tr>
@@ -57,6 +50,4 @@
 
         </tbody>
     </table>
-</body>
-
-</html>
+    <%- include('../partials/footer') %>

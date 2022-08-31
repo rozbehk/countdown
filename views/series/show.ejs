@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+
+
+    <div class="show-top">
+        <div> <img class="show-poster" src=" <%= `https://image.tmdb.org/t/p/original${serie.poster_path}`%>" alt="">
+        </div>
+        <div class="show-details">
+            <h1 class="name-top">
+                <%=serie.name %>
+            </h1>
+            <div>
+
+            </div>
+        </div>
+    </div>
+    <div class="seasons-detail">
+        <div class="season-detail">
+            <% serie.seasons.slice().reverse().forEach(function(season){ %>
+                <h3>
+                    <%= `Season ${season.season_number}`%>
+                </h3>
+                <% season.episode.forEach(function(episode){ %>
+                    <div class="episode-detail">
+                        <div>
+                            <%= `Episode ${episode.episode_number} : ${episode.name}` %>
+
+                        </div>
+                        <div>
+                            <%= new Date(episode.air_date).toDateString() %>
+                        </div>
+                        <div class="countdown" id="<%= episode.air_date %>">
+                            <div id="countdown"></div>
+                            <div id="newcountdown"></div>
+                        </div>
+                    </div>
+                    <% }) %>
+                <% }) %>
+        </div>
+    </div>
+
+    
+    <%- include('../partials/footer') %>

@@ -2,12 +2,14 @@ const Movie = require('../models/movie')
 const tmdbToken = process.env.TMDB_TOKEN
 const rootURL= 'https://api.themoviedb.org/3/movie/'
 const request = require('request');
+const fetch = require("node-fetch");
 
 
 module.exports = {
     index,
     new: newMovie,
-    create
+    create,
+    show
 }
 
 function index(req, res) {
@@ -20,48 +22,34 @@ function newMovie(req, res){
     res.render('movies/new')
 }
 
-function create(req, res) {
-    let movieUrl = `${rootURL}${req.body.movieId}?api_key=${tmdbToken}`
-    console.log(movieUrl)
-    request(movieUrl,function(err, response, body){
-        md = JSON.parse(body)
-        if(err){
-           return console.log(err)
-        }else{
-            let movie = new Movie
-            movie.backdrop_path = `https://image.tmdb.org/t/p/original${md.backdrop_path}`
-            movie.genres = md.genres
-            console.log(movie.genres)
-            movie.id = md.id
-            movie.imdb_id = md.imdb_id
-            movie.original_title = md.original_title
-            movie.overview = md.overview
-            movie.poster_path = `https://image.tmdb.org/t/p/original${md.poster_path}`
-            movie.release_date = md.release_date
-            movie.status = md.status
-            movie.title = md.title
-            movie.video = md.video
-            movie.vote_average = md.vote_average
-            movie.vote_count = md.vote_count
-            movie.save()
-        }
-    })
-    
-    // // convert nowShowing's checkbox of nothing or "on" to boolean
-    // req.body.nowShowing = !!req.body.nowShowing;
-    // // remove whitespace next to commas
-    // req.body.cast = req.body.cast.replace(/\s*,\s*/g, ',');
-    // // split if it's not an empty string
-    // if (req.body.cast) req.body.cast = req.body.cast.split(',');
-    // for (let key in req.body) {
-    //   if (req.body[key] === '') delete req.body[key];
-    // }
-    // const movie = new Movie(req.body);
-    // movie.save(function(err) {
-    //   // one way to handle errors
-    //   if (err) return res.render('movies/new');
-    //   console.log(movie);
-    //   // for now, redirect right back to new.ejs
+async function create(req, res) {
+    let movie = new Movie
+    try{
+      let movieUrl = `${rootURL}${req.body.movieId}?api_key=${tmdbToken}`
+      let movieData = await fetch(movieUrl).then(movie => movie.json())
+      movie.backdrop_path = `https://image.tmdb.org/t/p/original${movieData.backdrop_path}`
+      movie.genres = movieData.genres
+      movie.id = movieData.id
+      movie.imdb_id = movieData.imdb_id
+      movie.original_title = movieData.original_title
+      movie.overview = movieData.overview
+      movie.poster_path = `https://image.tmdb.org/t/p/original${movieData.poster_path}`
+      movie.release_date = movieData.release_date
+      movie.status = movieData.status
+      movie.title = movieData.title
+      movie.video = movieData.video
+      movie.vote_average = movieData.vote_average
+      movie.vote_count = movieData.vote_count
+      movie.save()
       res.redirect('/movies');
-    // });
-  }
+    }catch(err){
+      console.log(err);
+    }
+}  
+
+function show(req,res){
+  console.log('movie controler')
+  Movie.findById(req.params.id, function(err, movie) {
+      res.render('movies/show', { movie });
+    });
+}

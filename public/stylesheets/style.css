@@ -10,3 +10,24 @@ a {
 .poster {
   width: 100px;
 }
+.show-top {
+  display: flex;
+  flex-direction: row;
+}
+
+.show-poster {
+  width: 400px;
+
+}
+
+.name-top {
+  margin-left: 20px;
+  font-size: 50px;
+
+}
+
+.episode-detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

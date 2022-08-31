@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('../partials/header') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <title>Mongoose Movies</title>
-</head>
 
-<body>
     <h2>Enter a New Movie</h2>
     <form action="/movies" method="POST">
         <label>Title:
             <input type="text" name="movieId">
+            <input type="hidden" name="movieId" valu>
         </label><br>
         <label>Release Year:
             <input type="text" name="releaseYear">
@@ -34,6 +26,6 @@
         </label><br>
         <input type="submit" value="Add Movie">
     </form>
-</body>
 
-</html>
+    
+    <%- include('../partials/footer') %>
