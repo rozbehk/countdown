@@ -10,6 +10,7 @@ module.exports = {
     new: newSerie,
     create,
     show,
+    delete: deleteOne
     }
 
 async function index(req, res) {
@@ -24,7 +25,7 @@ function newSerie(req, res){
 
 async function create(req, res) {
     let search=[]
-    await series.find({id:req.body.seriesId}).then(serie => search=serie)
+    await Serie.find({id:req.body.seriesId}).then(serie => search=serie)
     if(search.length !== 0){
         return res.render('series/show',{serie: search[0],user:req.user})
     }
@@ -78,8 +79,9 @@ async function create(req, res) {
 
             }
         seriesSchema.seasons = seasonDetail
+        res.render('series/show' , {serie: seriesSchema,user:req.user},)
         seriesSchema.save()
-        res.redirect('/series/show' , {seriesSchema,user:req.user},)
+        
         
     }catch(err){
         console.log(err);
@@ -97,5 +99,7 @@ function show(req,res){
       
 }
 
-
+function deleteOne(req, res){
+    console.log(req)
+}
        

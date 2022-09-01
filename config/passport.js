@@ -10,15 +10,12 @@ passport.use(
     },
     // verify callback
     function (accessToken, refreshToken, profile, cb) {
-      console.log(User.find({}))
       User.findOne({ googleId: profile.id }, function (err, user) {
         if (err) return cb(err);
         if (user) {
-          console.log('existing user')
             // err first
           return cb(null, user);
         } else {
-          console.log('new user')
           // we have a new student via OAuth!
           var newUser = new User({
             name: profile.displayName,

@@ -1,7 +1,8 @@
 body {
   padding: 10px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-
+  background-color: black;
+  color: white;
 }
 
 a {
@@ -17,7 +18,7 @@ a {
 }
 
 .show-poster {
-  width: 400px;
+  width: 500px;
 
 }
 
@@ -34,14 +35,12 @@ a {
 }
 
 
- /* Style the tab */
  .tab {
   overflow: hidden;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
 }
 
-/* Style the buttons that are used to open the tab content */
 .tab button {
   background-color: inherit;
   float: left;
@@ -52,12 +51,10 @@ a {
   transition: 0.3s;
 }
 
-/* Change background color of buttons on hover */
 .tab button:hover {
   background-color: #ddd;
 }
 
-/* Create an active/current tablink class */
 .tab button.active {
   background-color: #ccc;
 }
@@ -76,12 +73,15 @@ a {
   justify-content: space-between;
   align-items: center;
   background-color: grey;
-  height: 50px;
-
-  
+  height: 70px;
   text-decoration: none;
 }
 
+#logo{
+  height: auto;
+    width: auto;
+    max-height: 70px;
+}
 .navbar-item{
   padding: 0 20px;
   text-decoration: none;

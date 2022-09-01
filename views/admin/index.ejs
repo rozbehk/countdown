@@ -3,51 +3,50 @@
 <div class="tab">
     <button class="tablinks" onclick="openCity(event, 'movies')">movies</button>
     <button class="tablinks" onclick="openCity(event, 'series')">series</button>
+    
   </div>
   
   <div id="series" class="tabcontent">
     <table>
     <tbody>
-      <th>Title</th>
-      <th>Genre</th>
-      <th>overview</th>
+ 
       <th>poster</th>
-      <th>Firt Air Date</th>
+      <th>Title</th>
       <th># episodes</th>
       <th># season</th>
-      <th>Details</th>
       <% series.forEach(function(serie ){ %>
           <tr>
+            <td>
+                <img class="poster" src=" <%=serie.poster_path%>" alt="">
+
+            </td>
               <td>
                   <%= serie.name %>
-              </td>
-              <td>
-                  <% serie.genres.forEach(function(genre){ %>
-                      <%=genre.name %>
-                          <% }) %>
-              </td>
-              <td>
-                  <%= serie.overview %>
-              </td>
-              <td>
-                  <img class="poster" src=" <%=serie.poster_path%>" alt="">
-  
-              </td>
-              <td>
-                  <%= serie.first_air_date %>
               </td>
               <td>
                   <%= serie.number_of_episodes %>
               </td>
               <td>
                   <%= serie.number_of_seasons %>
-                      </td>
-                      <td>
-                          <a href="/series/<%= serie._id %>">DETAILS</a>
+                </td>
+                <td>
+                    <a href="/series/<%= serie._id %>">DETAILS</a>
               </td>
-  
+              <td>
+                <form action="/series/<%= serie._id %>"method="POST">
+                <button>Update</button>
+              </form>
+              
+            </td>
+            <td>
+              <form action="/admin/<%= serie._id %>?_method=DELETE" method="POST" >
+                <input type="hidden" name="type" value="serie">
+                <button value="serie">Delete</button>
+            </form>
+        </td>
           </tr>
           <%})%>
+           
   
   </tbody>
   </table>
@@ -57,47 +56,41 @@
     <table>
   
       <tbody>
+        <th>poster</th>
           <th>Title</th>
-          <th>Genre</th>
-          <th>overview</th>
-          <th>poster</th>
           <th>release_date</th>
-          <th>video</th>
-          <th>vote</th>
           <th>Status</th>
           <% movies.forEach(function(movie){ %>
               <tr>
+                <td>
+                    <img class="poster" src=" <%= movie.poster_path%>" alt="">
+
+                </td>
                   <td>
                       <%= movie.title %>
                   </td>
-                  <td>
-  
-                      <% movie.genres.forEach(function(genre){ %>
-                          <%=genre.name %>
-                              <% }) %>
-                  </td>
-                  <td>
-                      <%= movie.overview %>
-                  </td>
-                  <td>
-                      <img class="poster" src=" <%= movie.poster_path%>" alt="">
-  
-                  </td>
+                      
                   <td>
                       <%= movie.release_date %>
-                  </td>
-                  <td>
-                      <%= movie.video %>
-                  </td>
-                  <td>
-                      <%= movie.vote %>
-                  </td>
+          
                   <td>
                       <%= movie.status %>
                   </td>
                   <td>
                       <a href="/movies/<%= movie._id %>">DETAILS</a>
                   </td>
+                  <td>
+                    <form action="/movie/<%= movie._id %>" method="POST">
+                    <button>Update</button>
+                  </form>
+                  
+                </td>
+                <td>
+                  <form action="/admin/<%= movie._id %>?_method=DELETE" method="POST" name="movie">
+                    <input type="hidden" name="type" value="movie">
+                    <button>Delete</button>
+                </form>
+            </td>
   
               </tr>
               <%})%>

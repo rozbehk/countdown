@@ -7,8 +7,8 @@ var logger = require('morgan');
 require('dotenv').config();
 var passport = require('passport');
 require('./config/passport');
-
 require('./config/database')
+var methodOverride = require('method-override')
 
 
 var indexRouter = require('./routes/index');
@@ -36,14 +36,24 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(methodOverride('_method'))
 app.use('/', indexRouter);
 app.use('/movies', moviesRouter);
 app.use('/series', seriesRouter);
+app.use(isAuthenticated)
+app.use('/profile',isAuthenticated, profileRouter)
+app.use(isAuthenticated, isAdmin)
 app.use('/search', searchRouter);
-app.use('/profile', profileRouter)
-app.use('/admin', adminRouter)
+app.use('/admin',isAuthenticated, adminRouter)
 
 
+function isAuthenticated(req,res,next){
+  req.isAuthenticated() ? next() : res.redirect('/auth/google')
+}
+
+function isAdmin(req,res,next){
+  req.user.isAdmin ? next() : res.redirect('/auth/google')
+}
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
