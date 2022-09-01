@@ -2,15 +2,22 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var session = require('express-session')
 var logger = require('morgan');
-require('./config/database')
 require('dotenv').config();
+var passport = require('passport');
+require('./config/passport');
+
+require('./config/database')
 
 
 var indexRouter = require('./routes/index');
 var moviesRouter = require('./routes/movies');
 var seriesRouter = require('./routes/series');
 var searchRouter = require('./routes/search');
+var profileRouter = require('./routes/profile');
+var adminRouter = require('./routes/admin');
+
 var app = express();
 
 // view engine setup
@@ -22,11 +29,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(session({
+  secret: "CountItDown",
+  resave: false,
+  saveUninitialized: true
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 app.use('/', indexRouter);
 app.use('/movies', moviesRouter);
 app.use('/series', seriesRouter);
 app.use('/search', searchRouter);
+app.use('/profile', profileRouter)
+app.use('/admin', adminRouter)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

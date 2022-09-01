@@ -1,16 +1,123 @@
 <%- include('./partials/header') %>
 
 
-  <h1>
-    <%= title %>
-  </h1>
-  <p>Welcome to <%= title %>
-  </p>
-  <a href="/movies">All movies</a>
-  <a href="/movies/new">Add A Movie</a>
-  <a href="/series">All Series</a>
-  <a href="/series/new">Add A Serie</a>
-  <a href="/search">search</a>
-
   
-  <%- include('../partials/footer') %>
+
+
+  <div>
+    
+<h2>Tabs</h2>
+<p>Click on the buttons inside the tabbed menu:</p>
+
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'movies')">movies</button>
+  <button class="tablinks" onclick="openCity(event, 'series')">series</button>
+</div>
+
+<div id="series" class="tabcontent">
+  <table>
+  <tbody>
+    <th>Title</th>
+    <th>Genre</th>
+    <th>overview</th>
+    <th>poster</th>
+    <th>Firt Air Date</th>
+    <th># episodes</th>
+    <th># season</th>
+    <th>Details</th>
+    <% series.forEach(function(serie ){ %>
+        <tr>
+            <td>
+                <%= serie.name %>
+            </td>
+            <td>
+                <% serie.genres.forEach(function(genre){ %>
+                    <%=genre.name %>
+                        <% }) %>
+            </td>
+            <td>
+                <%= serie.overview %>
+            </td>
+            <td>
+                <img class="poster" src=" <%=serie.poster_path%>" alt="">
+
+            </td>
+            <td>
+                <%= serie.first_air_date %>
+            </td>
+            <td>
+                <%= serie.number_of_episodes %>
+            </td>
+            <td>
+                <%= serie.number_of_seasons %>
+                    </td>
+                    <td>
+                        <a href="/series/<%= serie._id %>">DETAILS</a>
+            </td>
+
+        </tr>
+        <%})%>
+
+</tbody>
+</table>
+</div>
+
+<div id="movies" class="tabcontent">
+  <table>
+
+    <tbody>
+        <th>Title</th>
+        <th>Genre</th>
+        <th>overview</th>
+        <th>poster</th>
+        <th>release_date</th>
+        <th>video</th>
+        <th>vote</th>
+        <th>Status</th>
+        <% movies.forEach(function(movie){ %>
+            <tr>
+                <td>
+                    <%= movie.title %>
+                </td>
+                <td>
+
+                    <% movie.genres.forEach(function(genre){ %>
+                        <%=genre.name %>
+                            <% }) %>
+                </td>
+                <td>
+                    <%= movie.overview %>
+                </td>
+                <td>
+                    <img class="poster" src=" <%= movie.poster_path%>" alt="">
+
+                </td>
+                <td>
+                    <%= movie.release_date %>
+                </td>
+                <td>
+                    <%= movie.video %>
+                </td>
+                <td>
+                    <%= movie.vote %>
+                </td>
+                <td>
+                    <%= movie.status %>
+                </td>
+                <td>
+                    <a href="/movies/<%= movie._id %>">DETAILS</a>
+                </td>
+
+            </tr>
+            <%})%>
+                <!-- Close the forEach using EJS here -->
+    </tbody>
+</table>
+</div>
+
+
+
+ </div>
+
+
+  <%- include('./partials/footer') %>

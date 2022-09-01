@@ -7,33 +7,20 @@
             </tr>
         </thead>
         <tbody>
-            <th>Title</th>
-            <th>Genre</th>
-            <th>overview</th>
             <th>poster</th>
-            <th>Firt Air Date</th>
+            <th>Title</th>
+
             <th># episodes</th>
             <th># season</th>
             <th>Details</th>
             <% series.forEach(function(serie ){ %>
                 <tr>
                     <td>
-                        <%= serie.name %>
-                    </td>
-                    <td>
-                        <% serie.genres.forEach(function(genre){ %>
-                            <%=genre.name %>
-                                <% }) %>
-                    </td>
-                    <td>
-                        <%= serie.overview %>
-                    </td>
-                    <td>
                         <img class="poster" src=" <%=serie.poster_path%>" alt="">
 
                     </td>
                     <td>
-                        <%= serie.first_air_date %>
+                        <%= serie.name %>
                     </td>
                     <td>
                         <%= serie.number_of_episodes %>

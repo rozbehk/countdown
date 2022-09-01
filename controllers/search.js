@@ -12,14 +12,14 @@ module.exports = {
 
 function index(req ,res){
     searchResult = []
-      res.render('search', searchResult);
+    query =''
+      res.render('search', {searchResult,user:req.user ,query });
 }
 
 async function search(req, res){
     let searchResult = []
     let type
     searchString = req.body.searchString
-    console.log(req.body.searchString)
     if(req.body.type === 'movie'){
         type= 'movie'
         let i=1
@@ -39,21 +39,19 @@ async function search(req, res){
         let i=1
         type= 'tv'
         let requestUrl = `${rootURL}tv?api_key=${tmdbToken}&language=en-US&query=${searchString}&page=1&include_adult=false`
-        movieData = await fetch(requestUrl).then(search => search.json())
-        let totalPages= movieData.total_pages
+        serieData = await fetch(requestUrl).then(search => search.json())
+        let totalPages= serieData.total_pages
 
         for( let i=1 ; i <= totalPages ; i++){
             let requestUrl = `${rootURL}tv?api_key=${tmdbToken}&language=en-US&page=${i}&query=${searchString}&include_adult=false`
-            moviesData = await fetch(requestUrl).then(search => search.json())
-            moviesData.results.forEach(function(movie){
-                searchResult.push(movie)
+            serieData = await fetch(requestUrl).then(search => search.json())
+            serieData.results.forEach(function(serie){
+                searchResult.push(serie)
             })
             
         }        
     }
-    res.render('search', {searchResult , type},)
+    res.render('search', {searchResult , type , user:req.user , query : searchString})
     
 }
 
-// https://api.themoviedb.org/3/search/tv?api_key=1361af232d3ffec1e6e18064b8b8ecb4&language=en-US&page=1&query=dragon%20&include_adult=false
-// https://api.themoviedb.org/3/search/tv?api_key=1361af232d3ffec1e6e18064b8b8ecb4&language=en-US&page=1&query=undefined&include_adult=false

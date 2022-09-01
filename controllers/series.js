@@ -1,8 +1,8 @@
 const Serie = require('../models/series')
 const tmdbToken = process.env.TMDB_TOKEN
 const rootURL= 'https://api.themoviedb.org/3/tv/'
-const series = require('../models/series');
 const fetch = require("node-fetch");
+
 
 
 module.exports = {
@@ -12,17 +12,23 @@ module.exports = {
     show,
     }
 
-function index(req, res) {
+async function index(req, res) {
     Serie.find({}, function(err, series) {
-      res.render('series/index', { series });
+      res.render('series/index', { series,user:req.user });
     });
   }
 
 function newSerie(req, res){
-    res.render('series/new')
+    res.render('series/new',{user:req.user})
 }
 
 async function create(req, res) {
+    let search=[]
+    await series.find({id:req.body.seriesId}).then(serie => search=serie)
+    if(search.length !== 0){
+        return res.render('series/show',{serie: search[0],user:req.user})
+    }
+        
     let seriesSchema = new Serie
     try{
         let seriesUrl = `${rootURL}${req.body.seriesId}?api_key=${tmdbToken}&language=en-US`
@@ -37,7 +43,7 @@ async function create(req, res) {
         seriesSchema.number_of_episodes = seriesData.number_of_episodes
         seriesSchema.number_of_seasons = seriesData.number_of_seasons
         seriesSchema.overview = seriesData.overview
-        seriesSchema.poster_path = `https://image.tmdb.org/t/p/original${seriesData.poster_path}`
+        seriesSchema.poster_path = `https://image.tmdb.org/t/p/w500${seriesData.poster_path}`
         seriesSchema.vote_average = seriesData.vote_average
         seriesSchema.vote_count = seriesData.vote_count
        
@@ -49,8 +55,8 @@ async function create(req, res) {
         for( i = 1 ; i <= seriesSchema.number_of_seasons ; i++){
             let episodeDetail=[]
             let seasonsUrl = `${rootURL}${req.body.seriesId}/season/${i}?api_key=${tmdbToken}&language=en-US`
+
             let seasonsData = await fetch(seasonsUrl).then(episode => episode.json())
-                console.log(seasonsUrl)
                 seasonsData.episodes.forEach(function(episode) {
                     episodeDetail.push({
                         air_date: episode.air_date,
@@ -69,26 +75,26 @@ async function create(req, res) {
                     season_number: seasonsData.season_number,
                     episode : episodeDetail
                 })
-              
-                // console.log('--------------------------------')
-            
-            // seriesSchema.seasons = seasonDetail
+
             }
         seriesSchema.seasons = seasonDetail
         seriesSchema.save()
-        res.redirect('/series')
+        res.redirect('/series/show' , {seriesSchema,user:req.user},)
         
     }catch(err){
         console.log(err);
-        res.redirect('/series')
+        res.redirect('/series',{user:req.user})
     }
 }
 
 
 function show(req,res){
+    
     Serie.findById(req.params.id, function(err, serie) {
-        res.render('series/show', { serie });
+        
+        res.render('series/show', { serie ,user:req.user});
       });
+      
 }
 
 

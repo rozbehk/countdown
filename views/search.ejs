@@ -1,10 +1,10 @@
-<%- include('../partials/header') %>
+<%- include('./partials/header') %>
 
 
     <h2>Search</h2>
     <form action="/search" method="POST">
         <label>Title:</label>
-        <input type="text" name="searchString">
+        <input type="text" name="searchString" value="<%=query%>">
         <select name="type" id="">
             <option value="movie">movie</option>
             <option value="tv">series</option>
@@ -15,24 +15,37 @@
             <div class="episode-detail">
                 <div>
                    <% if(result.poster_path != null ){ %>
-                        <img class="poster" src="<%= `https://image.tmdb.org/t/p/original${result.poster_path}` %>" alt="">
+                        <img class="poster" src="<%= `https://image.tmdb.org/t/p/w500${result.poster_path}` %>" alt="">
                     <% }else{ %>
                         <img class="poster" src="/images/nopicture.jpg" alt="">
                     <% } %>
                    
                 </div>
+                <% if(type == 'movie'){ %>
                 <div>
                   <%=  result.title %>
                 </div>
+                <% }else{ %>
+                    <%= result.name %>
+                <% } %>
+                <% if(type == 'movie'){ %>
+                    <div class="countdown" id="<%= result.release_date %>">
+                        <div id="countdown"></div>
+                        <div id="newcountdown"></div>
+                    </div>
+                    <% }else{ %>
+                        <%= result.name %>
+                    <% } %>
+               
                 <div>
                     <% if(type == 'movie'){ %>
                         <form action="/movies" method="POST">
-                            <input type="hidden" name="movieId" value="<%=result.id%>">
+                          <input type="hidden" name="movieId" value="<%=result.id%>">
                           <input type="submit" value="Add To Website">
                         </form>
                   <%  }else{ %>
                         <form action="/series" method="POST">
-                            <input type="hidden" name="serieId" value="<%=result.id%>">
+                          <input type="hidden" name="seriesId" value="<%=result.id%>">
                           <input type="submit" value="Add To Website">
                         </form>
                   <%  } %>
@@ -44,4 +57,4 @@
         <% }) %>
 
         
-        <%- include('../partials/footer') %>
+        <%- include('./partials/footer') %>
