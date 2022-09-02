@@ -11,7 +11,10 @@
       <div>
         <div><%= movie.title %></div>
         <div><%= movie.details %></div>
-        <div>counter</div>
+        <div class="countdown" id="<%= movie.release_date %>">
+          <h2 id="countdown"></h1>
+          <h2 id="newcountdown"></h2>
+      </div>
        </div>
     </div>
   <%})%>
