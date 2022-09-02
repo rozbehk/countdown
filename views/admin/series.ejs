@@ -24,11 +24,11 @@
             <th>In Production</th>
             
             <% series.forEach(function(serie){ %>
-              <tr>
+              <tr class="cards" >
                   <td>
                       <img class="poster-admin" src=" https://image.tmdb.org/t/p/w500<%= serie.poster_path%>" alt="">
                   </td>
-                  <td><%= serie.name %></td>                        
+                  <td class="title"><%= serie.name %></td>                        
                   <td><%= serie.release_date %></td>
                   <td><%= serie.in_production %></td>
                   <td><a class="detail-btn" href="/series/<%= serie._id %>">DETAILS</a></td>
