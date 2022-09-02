@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var session = require('express-session')
 var logger = require('morgan');
-require('dotenv').config();
 var passport = require('passport');
+require('dotenv').config();
 require('./config/passport');
 require('./config/database')
 var methodOverride = require('method-override')

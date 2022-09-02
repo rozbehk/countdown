@@ -1,0 +1,129 @@
+<%- include('../partials/header') %>
+
+
+
+
+<div class="wrapper">
+  <div class="sidebar">
+    <div class="admin-sidebar">
+      <div class="admin-sidebar-title"></div>
+      <div>
+        <h2>Admin Menu</h2>
+        <a class="admin-sidebar-link active" href="/admin/search">Add</a>
+        <a class="admin-sidebar-link" href="/admin/movies">Movies</a>
+        <a class="admin-sidebar-link" href="/admin/series">Series</a>
+      </div>
+      
+    </div>
+  </div>
+  <div class="admin-body">
+    <h1>WELCOME <%=user.name%></h1>
+  </div>
+
+</div>
+
+
+
+
+
+<!-- <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'movies')">movies</button>
+    <button class="tablinks" onclick="openCity(event, 'series')">series</button>
+    
+  </div> -->
+  
+  <!-- <div id="series" class="tabcontent">
+    <table>
+    <tbody>
+ 
+      <th>poster</th>
+      <th>Title</th>
+      <th># episodes</th>
+      <th># season</th>
+      <% series.forEach(function(serie ){ %>
+          <tr>
+            <td>
+                <img class="poster" src=" <%=serie.poster_path%>" alt="">
+
+            </td>
+              <td>
+                  <%= serie.name %>
+              </td>
+              <td>
+                  <%= serie.number_of_episodes %>
+              </td>
+              <td>
+                  <%= serie.number_of_seasons %>
+                </td>
+                <td>
+                    <a href="/series/<%= serie._id %>">DETAILS</a>
+              </td>
+              <td>
+                <form action="/series/<%= serie._id %>"method="POST">
+                <button>Update</button>
+              </form>
+              
+            </td>
+            <td>
+              <form action="/admin/<%= serie._id %>?_method=DELETE" method="POST" >
+                <input type="hidden" name="type" value="serie">
+                <button value="serie">Delete</button>
+            </form>
+        </td>
+          </tr>
+          <%})%>
+           
+  
+  </tbody>
+  </table>
+  </div>
+  
+  <div id="movies" class="tabcontent">
+    <table>
+  
+      <tbody>
+        <th>poster</th>
+          <th>Title</th>
+          <th>release_date</th>
+          <th>Status</th>
+          <% movies.forEach(function(movie){ %>
+              <tr>
+                <td>
+                    <img class="poster" src=" <%= movie.poster_path%>" alt="">
+
+                </td>
+                  <td>
+                      <%= movie.title %>
+                  </td>
+                      
+                  <td>
+                      <%= movie.release_date %>
+          
+                  <td>
+                      <%= movie.status %>
+                  </td>
+                  <td>
+                      <a href="/movies/<%= movie._id %>">DETAILS</a>
+                  </td>
+                  <td>
+                    <form action="/movie/<%= movie._id %>" method="POST">
+                    <button>Update</button>
+                  </form>
+                  
+                </td>
+                <td>
+                  <form action="/admin/<%= movie._id %>?_method=DELETE" method="POST" name="movie">
+                    <input type="hidden" name="type" value="movie">
+                    <button>Delete</button>
+                </form>
+            </td>
+  
+              </tr>
+              <%})%>
+                  Close the forEach using EJS here
+      </tbody> -->
+  </table>
+  </div>
+  
+
+<%- include('../partials/footer') %>
