@@ -35,7 +35,7 @@ async function create(req, res) {
         let seriesUrl = `${rootURL}${req.body.seriesId}?api_key=${tmdbToken}&language=en-US`
         let seriesData = await fetch(seriesUrl).then(serie => serie.json())
 
-        seriesSchema.backdrop_path = `https://image.tmdb.org/t/p/original${seriesData.backdrop_path}`
+        seriesSchema.backdrop_path = seriesData.backdrop_path
         seriesSchema.first_air_date = seriesData.first_air_date
         seriesSchema.genres = seriesData.genres
         seriesSchema.id = seriesData.id
@@ -44,7 +44,7 @@ async function create(req, res) {
         seriesSchema.number_of_episodes = seriesData.number_of_episodes
         seriesSchema.number_of_seasons = seriesData.number_of_seasons
         seriesSchema.overview = seriesData.overview
-        seriesSchema.poster_path = `https://image.tmdb.org/t/p/w500${seriesData.poster_path}`
+        seriesSchema.poster_path = seriesData.poster_path
         seriesSchema.vote_average = seriesData.vote_average
         seriesSchema.vote_count = seriesData.vote_count
        

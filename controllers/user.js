@@ -17,7 +17,7 @@ function index(req, res) {
   });
 }
 
-async function update(req, res) {
+function update(req, res) {
   if (req.body.ref == "Series") {
     req.user.seriesList.push(req.params.id);
     req.user.save();
@@ -32,12 +32,10 @@ async function update(req, res) {
 
 function deleteOne(req, res) {
   if (req.body.ref == "Series") {
-    console.log('remove series')
     req.user.seriesList.remove(mongoose.Types.ObjectId(req.params));
     res.redirect("/user/series");
     req.user.save();
   } else {
-    console.log('remove movie')
     req.user.moviesList.remove(mongoose.Types.ObjectId(req.params));
     res.redirect("/user/movies");
     req.user.save();

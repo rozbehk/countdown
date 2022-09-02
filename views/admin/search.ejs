@@ -1,17 +1,23 @@
 <%- include('../partials/header') %>
 
+
 <div class="wrapper">
-    <div class="sidebar">
-      <h2>Admin Menu</h2>
-      <ul>
-        <li><a href="/admin/search">Add</a></li>
-        <li><a href="/admin/movies">Movies</a></li>
-        <li><a href="/admin/series">Series</a></li>
-      </ul>
+  <div class="sidebar">
+    <div class="admin-sidebar">
+      <div class="admin-sidebar-title"></div>
+      <div>
+        <h1>Admin Menu</h1>
+        <a class="admin-sidebar-link active" href="/admin/search">Add</a>
+        <a class="admin-sidebar-link" href="/admin/movies">Movies</a>
+        <a class="admin-sidebar-link" href="/admin/series">Series</a>
+      </div>
+      
     </div>
   </div>
-    <h2>Search</h2>
-    <form action="/admin/search" method="POST">
+  <div class="admin-body">
+    
+    <form class="search-admin" action="/admin/search" method="POST">
+      <h2>Search</h2>
         <label>Title:</label>
         <input type="text" name="searchString" value="<%=query%>">
         <select name="type" id="">
@@ -24,9 +30,9 @@
             <div class="episode-detail">
                 <div>
                    <% if(result.poster_path != null ){ %>
-                        <img class="poster" src="<%= `https://image.tmdb.org/t/p/w500${result.poster_path}` %>" alt="">
+                        <img class="poster-admin" src="<%= `https://image.tmdb.org/t/p/w500${result.poster_path}` %>" alt="">
                     <% }else{ %>
-                        <img class="poster" src="/images/nopicture.jpg" alt="">
+                        <img class="poster-admin" src="/images/nopicture.jpg" alt="">
                     <% } %>
                    
                 </div>
@@ -64,6 +70,10 @@
             </div>
             
         <% }) %>
+  </div>
+
+</div>
+
 
         
         <%- include('../partials/footer') %>

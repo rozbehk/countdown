@@ -1,15 +1,20 @@
 <%- include('../partials/header') %>
 
 <div class="wrapper">
-    <div class="sidebar">
-      <h2>User Menu</h2>
-      <ul>
-        <li><a href="/user/movies">Movies</a></li>
-        <li><a href="/user/series">Series</a></li>
-      </ul>
+  <div class="sidebar">
+    <div class="admin-sidebar">
+      <div class="admin-sidebar-title"></div>
+      <div>
+        <h1>User Menu</h1>
+        <a class="admin-sidebar-link" href="/user/movies">Movies</a>
+        <a class="admin-sidebar-link" href="/user/series">Series</a>
+      </div>
     </div>
   </div>
-  
-  
+  <div class="admin-body">
+    <h1> WELCOME <%=user.name.toUpperCase()%></h1>
+  </div>
+
+</div>
 
 <%- include('../partials/footer') %>

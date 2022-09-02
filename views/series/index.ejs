@@ -1,40 +1,25 @@
 <%- include('../partials/header') %>
-    <h1>Series List</h1>
-    <table>
-        <thead>
-            <tr>
-
-            </tr>
-        </thead>
-        <tbody>
-            <th>poster</th>
-            <th>Title</th>
-
-            <th># episodes</th>
-            <th># season</th>
-            <th>Details</th>
+<h1>Series List</h1>
+<div class="list-wrapper">
+    <div><input type="text" id="search" onkeyup="livesearch()" placeholder="Search for names.."></div>
+    <div>
+        <div class="grid-container">
             <% series.forEach(function(serie ){ %>
-                <tr>
-                    <td>
-                        <img class="poster" src=" <%=serie.poster_path%>" alt="">
-
-                    </td>
-                    <td>
-                        <%= serie.name %>
-                    </td>
-                    <td>
-                        <%= serie.number_of_episodes %>
-                    </td>
-                    <td>
-                        <%= serie.number_of_seasons %>
-                            </td>
-                            <td>
-                                <a href="/series/<%= serie._id %>">DETAILS</a>
-                    </td>
-
-                </tr>
-                <%})%>
-
-        </tbody>
-    </table>
+            <div class="cards grid-item">
+                <div>
+                    <a  href="/series/<%= serie._id %>"><img class="poster-small" src="https://image.tmdb.org/t/p/w500<%=serie.poster_path%>" alt=""></a>
+                    
+                </div>
+                <div>
+                    <div class="title-small"><%= serie.name %></div>
+                    <div>counter</div>
+                    <div></div>
+                </div>
+            </div>
+            <%})%>
+        </div>
+    </div>
+    
+</div>
+  
     <%- include('../partials/footer') %>

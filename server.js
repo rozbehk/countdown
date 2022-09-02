@@ -37,9 +37,9 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 app.use('/', indexRouter);
-app.use('/user',isAuthenticated, userRouter)
 app.use('/movies',isAuthenticated, moviesRouter);
 app.use('/series',isAuthenticated, seriesRouter);
+app.use('/user',isAuthenticated, userRouter)
 app.use('/admin',isAuthenticated,isAdmin ,adminRouter)
 
 

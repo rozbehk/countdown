@@ -1,35 +1,46 @@
 <%- include('../partials/header') %>
 
 
-<div class="show-top">
-    <div> <img class="show-poster" src=" <%= `https://image.tmdb.org/t/p/original${movie.poster_path}`%>" alt="">
+    <div class="show-top">
+        <div> 
+            <img class="show-poster" src=" <%= `https://image.tmdb.org/t/p/w500${movie.poster_path}`%>" alt="">
+        </div>
+        <div class="show-details">
+            <div class="name-top"><h3><%=movie.title %></h3></div>
+            <div>
+                <div class="countdown" id="<%= movie.release_date %>">
+                    <h2 id="countdown"></h1>
+                    <h2 id="newcountdown"></h2>
+                </div>
+                <div class="episode-detail"> <%= new Date(movie.release_date).toDateString() %></div>
+            </div>
+            <div class="rate-wish">
+                <div>
+                    <p>Rate : <%=movie.vote_average%></p>
+                  </div>
+                <div >
+                    <% if(user.moviesList.find(element => element.toString() == movie._id.toString())){%>
+                        <form action="/user/<%= movie._id %>?_method=DELETE" method="POST" name="movie">
+                            <input type="hidden" name="ref" value="movies" >
+                            <button class="detail-btn">Remove From Wish List</button>
+                        </form>
+                   
+                    <% }else {  %>
+                        <form action="/user/<%= movie._id%>?_method=PUT" method="POST">
+                            <input type="hidden" name="ref" value="movies" >
+                            <button class="detail-btn">Add To The Wish List</button>
+                        </form>
+                        <% } %>
+                </div>
+                
+            </div>
+            <div>
+                <div>
+                    <p>Overview:</p>
+                    <p><%=movie.overview%></p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="show-details">
-        <h1 class="name-top">
-                <%=movie.title %>
-
-        </h1>
-        <div>
-            <% if(user.moviesList.find(element => element.toString() == movie._id.toString())){%>
-                <form action="/user/<%= movie._id %>?_method=DELETE" method="POST" name="movie">
-                    <input type="hidden" name="ref" value="Movies" >
-                    <button>Remove From Wish List</button>
-                </form>
-            
-            <% }else {  %>
-                <form action="/user/<%=movie._id%>?_method=PUT" method="POST">
-                    <input type="hidden" name="ref" value="Movie" >
-                    <button>Add To The Wish List</button>
-                </form>
-            <% } %>
-
-    </div>
-</div>
-<div class="countdown" id="<%= movie.release_date %>">
-    <div id="countdown"></div>
-    <div id="newcountdown"></div>
-</div>
     
-
-
 <%- include('../partials/footer') %>

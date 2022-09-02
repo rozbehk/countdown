@@ -1,26 +1,20 @@
 <%- include('../partials/header') %>
-<h1>Series List</h1>
-<table>
-  <thead>
-    <tr></tr>
-  </thead>
-  <tbody>
-    <th>poster</th>
-    <th>Title</th>
-    <th>Details</th>
-    <% movies.forEach(function(movie){ %>
-    <tr>
-      <td>
-        <img class="poster" src=" <%=movie.poster_path%>" alt="" />
-      </td>
-      <td><%= movie.title %></td>
-      <td><%= movie.details %></td>
-      <td>
-        <a href="/movies/<%= movie._id %>">DETAILS</a>
-      </td>
-    </tr>
+<h1>Movies List</h1>
+<input type="text" id="search" onkeyup="livesearch()" placeholder="Search for names..">
+<div class="grid-container">
+  <% movies.forEach(function(movie){ %>
+    <div class="grid-item cards">
+      <div>
+        <a  href="/movies/<%= movie._id %>"><img class="poster-small" src="https://image.tmdb.org/t/p/w500<%=movie.poster_path%>" alt="movie.title"></a>
+       
+      </div>
+      <div>
+        <div><%= movie.title %></div>
+        <div><%= movie.details %></div>
+        <div>counter</div>
+       </div>
+    </div>
+  <%})%>
+</div>
 
-    <%})%>
-  </tbody>
-</table>
 <%- include('../partials/footer') %>

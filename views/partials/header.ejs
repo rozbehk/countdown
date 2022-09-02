@@ -8,18 +8,24 @@
     <title>Mongoose Movies</title>
     <script defer src="/javascripts/tab.js"></script>
     <script defer src="/javascripts/countdown.js"></script>
+    <script defer src="/javascripts/livesearch.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Montserrat&display=swap" rel="stylesheet">
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
   </head>
   <nav class="navbar">
-    <div>
-      <img src="/images/logo-no-back.png" alt="" id="logo" />
+    <div class="logo">
+      <a href="/"><img src="/images/logo-no-back.png" alt="" id="logo" /></a>
+    </div>
+    <div class="main-menu">
       <a class="navbar-item" href="/movies">All movies</a>
       <a class="navbar-item" href="/series">All Series</a>
-
     </div>
+    
     <div>
       <% if (user) { %>
       <a class="navbar-item" href="/user">my list</a>
@@ -27,12 +33,9 @@
       <% if (user && user.isAdmin) { %>
       <a class="navbar-item" href="/admin">Admin Panel</a>
       <% } %> <% if (user) { %>
-      <a href="/logout"
-        ><i class="material-icons left">trending_flat</i>Log Out</a
-      >
+      <a href="/logout" class="detail-btn">Log Out</a>
       <% } else { %>
-      <a href="/auth/google"
-        ><i class="material-icons left">vpn_key</i>Login with Google</a
+      <a href="/auth/google" class="detail-btn">Login with Google</a
       >
       <% } %>
     </div>

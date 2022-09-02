@@ -31,13 +31,13 @@ async function create(req, res) {
     try{
       let movieUrl = `${rootURL}${req.body.movieId}?api_key=${tmdbToken}`
       let movieData = await fetch(movieUrl).then(movie => movie.json())
-      movie.backdrop_path = `https://image.tmdb.org/t/p/original${movieData.backdrop_path}`
+      movie.backdrop_path = movieData.backdrop_path
       movie.genres = movieData.genres
       movie.id = movieData.id
       movie.imdb_id = movieData.imdb_id
       movie.original_title = movieData.original_title
       movie.overview = movieData.overview
-      movie.poster_path = `https://image.tmdb.org/t/p/original${movieData.poster_path}`
+      movie.poster_path = movieData.poster_path
       movie.release_date = movieData.release_date
       movie.status = movieData.status
       movie.title = movieData.title

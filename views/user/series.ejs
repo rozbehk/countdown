@@ -1,56 +1,55 @@
 <%- include('../partials/header') %>
+
 <div class="wrapper">
-    <div class="sidebar">
-      <h2>Admin Menu</h2>
-      <ul>
-        <li><a href="/user/movies">Movies</a></li>
-        <li><a href="/user/series">Series</a></li>
-      </ul>
+  <div class="sidebar">
+    <div class="admin-sidebar">
+      <div class="admin-sidebar-title"></div>
+      <div>
+        <h1>User Menu</h1>
+        <a class="admin-sidebar-link" href="/user/movies">Movies</a>
+        <a class="admin-sidebar-link active" href="/user/series">Series</a>
+      </div>
     </div>
   </div>
-<h1>Admin Series Panel</h1>
-<table>
-<tbody>
-    <th>poster</th>
-      <th>Title</th>
-      <th>release_date</th>
-      <th>Status</th>
-      <% console.log(series) %>
-      <% series.forEach(function(serie){ %>
-          <tr>
-            <td>
-                <img class="poster" src=" <%= serie.poster_path%>" alt="">
-    
-            </td>
-              <td>
-                  <%= serie.title %>
-              </td>
+  <div class="admin-body">
+    <% if(series.length < 1){ %>
+      <h2>There is no tv series in your list</h2>
+    <% }else{ %>
+    <table>
+      <tbody>
+          <th>poster</th>
+            <th>Title</th>
+            <th>Release date</th>
+            <th>Status</th>
+           
+            
+            <% series.forEach(function(serie){ %>
+                <tr>
+                  <td>
+                      <img class="poster-admin" src=" https://image.tmdb.org/t/p/w500<%= serie.poster_path%>" alt="">
+                  </td>  
                   
-              <td>
-                  <%= serie.release_date %>
-      
-              <td>
-                  <%= serie.status %>
+                  <td><%= serie.name %></td>
+                    <td><%= serie.first_air_date %>          
+                    <td><%= serie.status %></td>
+                    <td><a class="detail-btn" href="/series/<%= serie._id %>">DETAILS</a></td>
+                    <td>
+                   </td>
+                  <td>
+                    <form action="/user/<%= serie._id %>?_method=DELETE" method="POST" name="serie">
+                      <input type="hidden" name="type" value="serie">
+                      <button class="delete-btn">X</button>
+                  </form>
               </td>
-              <td>
-                  <a href="/series/<%= serie._id %>">DETAILS</a>
-              </td>
-              <td>
-                <form action="/serie/<%= serie._id %>" method="POST">
-                <button>Update</button>
-              </form>
-              
-            </td>
-            <td>
-              <form action="/admin/<%= serie._id %>?_method=DELETE" method="POST" name="serie">
-                <input type="hidden" name="type" value="serie">
-                <button>Delete</button>
-            </form>
-        </td>
-    
-          </tr>
-          <%})%>
+          
+                </tr>
+                <%})%>
+              <%}%>
+          </tbody>
+      </table>
+  </div>
 
-    </tbody>
-</table>
+</div>
+
+
     <%- include('../partials/footer') %>

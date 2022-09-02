@@ -2,52 +2,73 @@
 
 
     <div class="show-top">
-        <div> <img class="show-poster" src=" <%= `https://image.tmdb.org/t/p/original${serie.poster_path}`%>" alt="">
+        <div> 
+            <img class="show-poster" src=" <%= `https://image.tmdb.org/t/p/w500${serie.poster_path}`%>" alt="">
         </div>
         <div class="show-details">
-            <h1 class="name-top">
-                <%=serie.name %>
-            </h1>
+            <div class="name-top"><h3><%=serie.name %></h3></div>
             <div>
-                <% if(user.seriesList.find(element => element.toString() == serie._id.toString())){%>
-                    <form action="/user/<%= serie._id %>?_method=DELETE" method="POST" name="serie">
-                        <input type="hidden" name="ref" value="Series" >
-                        <button>Remove From Wish List</button>
-                    </form>
+                <h3>counter</h3>
+            </div>
+            <div class="rate-wish">
+                <div>
+                    <p>Rate : <%=serie.vote_average%></p>
+                  </div>
+                <div >
+                    <% if(user.seriesList.find(element => element.toString() == serie._id.toString())){%>
+                        <form action="/user/<%= serie._id %>?_method=DELETE" method="POST" name="serie">
+                            <input type="hidden" name="ref" value="Series" >
+                            <button class="detail-btn">Remove From Wish List</button>
+                        </form>
+                   
+                    <% }else {  %>
+                        <form action="/user/<%= serie._id%>?_method=PUT" method="POST">
+                            <input type="hidden" name="ref" value="Series" >
+                            <button class="detail-btn">Add To The Wish List</button>
+                        </form>
+                        <% } %>
+                </div>
                 
-                <% }else {  %>
-                    <form action="/user/<%= serie._id%>?_method=PUT" method="POST">
-                        <input type="hidden" name="ref" value="Series" >
-                        <button>Add To The Wish List</button>
-                    </form>
-                <% } %>
+            </div>
+            <div>
+                <div>
+                    <p>Overview:</p>
+                    <p><%=serie.overview%></p>
+                </div>
+                <div><p>Total Episodes: <%=serie.number_of_episodes%></div></p>
+                <div><p>Total Seasons:<%=serie.number_of_seasons%></p></div>
             </div>
         </div>
     </div>
     <div class="seasons-detail">
-        <div class="season-detail">
+        <div >
             <% serie.seasons.slice().reverse().forEach(function(season){ %>
-                <h3>
-                    <%= `Season ${season.season_number}`%>
-                </h3>
+                <h2>
+                    <%=`Season ${season.season_number}`%>
+                </h2>
                 <% season.episode.forEach(function(episode){ %>
+                <div class="episode-wrapper">
+                    <div class="episode-detail"><%= `Episode ${episode.episode_number} : ${episode.name}` %></div>
+                    <div class="episode-detail"> <%= new Date(episode.air_date).toDateString() %></div>
                     <div class="episode-detail">
-                        <div>
-                            <%= `Episode ${episode.episode_number} : ${episode.name}` %>
-
-                        </div>
-                        <div>
-                            <%= new Date(episode.air_date).toDateString() %>
-                        </div>
                         <div class="countdown" id="<%= episode.air_date %>">
                             <div id="countdown"></div>
                             <div id="newcountdown"></div>
                         </div>
                     </div>
+                </div>
+                
+                    <div class="episode-detail">
+                        <div>
+                            
+
+                        </div>
+                        <div>
+                           
+                        </div>
+                        
+                    </div>
                     <% }) %>
                 <% }) %>
         </div>
     </div>
-
-    
-    <%- include('../partials/footer') %>

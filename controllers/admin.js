@@ -1,5 +1,6 @@
 const Movie = require('../models/movie')
 const Serie = require('../models/series')
+const Index = require('../models/index')
 const tmdbToken = process.env.TMDB_TOKEN
 const rootURL= 'https://api.themoviedb.org/3/search/'
 const fetch = require("node-fetch");
@@ -11,7 +12,7 @@ module.exports = {
     searchIndex,
     search,
     moviesIndex,
-    seriesIndex
+    seriesIndex,
 }
 
 
@@ -25,11 +26,11 @@ function deleteOne(req, res){
     
     if(req.body.type == 'serie'){
         Serie.findByIdAndRemove(req.params.id, function(err, serie) {
-            res.redirect('/admin');
+            res.redirect('/admin/series');
         });
     }else{
         Movie.findByIdAndRemove(req.params.id, function(err, movie) {
-            res.redirect('/admin');
+            res.redirect('/admin/movies');
         });
     }
 
@@ -37,8 +38,9 @@ function deleteOne(req, res){
 
 function searchIndex(req ,res){
     searchResult = []
+    user=''
     query =''
-      res.render('admin/search', {searchResult,user:req.user ,query });
+      res.render('admin/search', {searchResult, user:req.user ,query });
 }
 
 async function search (req, res){
@@ -91,3 +93,4 @@ function seriesIndex(req, res) {
       res.render('admin/series', { series,user:req.user });
     });
   }
+

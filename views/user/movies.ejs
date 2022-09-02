@@ -1,25 +1,33 @@
 <%- include('../partials/header') %>
+
 <div class="wrapper">
   <div class="sidebar">
-    <h2>User Menu</h2>
-    <ul>
-      <li><a href="/user/movies">Movies</a></li>
-      <li><a href="/user/series">Series</a></li>
-    </ul>
+    <div class="admin-sidebar">
+      <div class="admin-sidebar-title"></div>
+      <div>
+        <h1>User Menu</h1>
+        <a class="admin-sidebar-link active" href="/user/movies">Movies</a>
+        <a class="admin-sidebar-link" href="/user/series">Series</a>
+      </div>
+    </div>
   </div>
-</div>
-<h1>User Movie List</h1>
+  <div class="admin-body">
+    <h1>User Movie List</h1>
+    <% if(movies.length < 1){ %>
+      <h2>There is no movie in your list</h2>
+    <% }else{ %>
 <table>
+  
 <tbody>
 <th>poster</th>
   <th>Title</th>
-  <th>release_date</th>
+  <th>Release date</th>
   <th>Status</th>
   
   <% movies.forEach(function(movie){ %>
       <tr>
         <td>
-            <img class="poster" src=" <%= movie.poster_path%>" alt="">
+            <img class="poster-admin" src=" https://image.tmdb.org/t/p/w500<%= movie.poster_path%>" alt="">
 
         </td>
           <td>
@@ -30,27 +38,33 @@
               <%= movie.release_date %>
   
           <td>
-              <%= movie.status %>
+            <div class="countdown" id="<%= movie.release_date %>">
+              <div class="countdown" id="<%= movie.release_date %>">
+                <h2 id="countdown"></h1>
+                <h2 id="newcountdown"></h2>
+            </div>
+              <h2 id="newcountdown"></h2>
+          </div>
           </td>
           <td>
-              <a href="/movies/<%= movie._id %>">DETAILS</a>
+              <a class="detail-btn" href="/movies/<%= movie._id %>">DETAILS</a>
           </td>
-          <td>
-            <form action="/movie/<%= movie._id %>" method="POST">
-            <button>Update</button>
-          </form>
           
         </td>
         <td>
           <form action="/user/<%= movie._id %>?_method=DELETE" method="POST" name="movie">
             <input type="hidden" name="type" value="movie">
-            <button>Delete</button>
+            <button class="delete-btn">X</button>
         </form>
     </td>
 
       </tr>
       <%})%>
-          Close the forEach using EJS here
+      <%}%>
 </tbody>
 </table>
+  </div>
+
+</div>
+
 <%- include('../partials/footer') %>
