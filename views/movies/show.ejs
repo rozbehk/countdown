@@ -7,7 +7,21 @@
     <div class="show-details">
         <h1 class="name-top">
                 <%=movie.title %>
+
         </h1>
+        <div>
+            <% if(user.moviesList.find(element => element.toString() == movie._id.toString())){%>
+                <form action="/user/<%= movie._id %>?_method=DELETE" method="POST" name="movie">
+                    <input type="hidden" name="ref" value="Movies" >
+                    <button>Remove From Wish List</button>
+                </form>
+            
+            <% }else {  %>
+                <form action="/user/<%=movie._id%>?_method=PUT" method="POST">
+                    <input type="hidden" name="ref" value="Movie" >
+                    <button>Add To The Wish List</button>
+                </form>
+            <% } %>
 
     </div>
 </div>

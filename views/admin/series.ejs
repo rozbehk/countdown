@@ -1,0 +1,57 @@
+<%- include('../partials/header') %>
+<div class="wrapper">
+    <div class="sidebar">
+      <h2>Admin Menu</h2>
+      <ul>
+        <li><a href="/admin/search">Add</a></li>
+        <li><a href="/admin/movies">Movies</a></li>
+        <li><a href="/admin/series">Series</a></li>
+      </ul>
+    </div>
+  </div>
+<h1>Admin Series Panel</h1>
+<table>
+<tbody>
+    <th>poster</th>
+      <th>Title</th>
+      <th>release_date</th>
+      <th>Status</th>
+      
+      <% series.forEach(function(serie){ %>
+          <tr>
+            <td>
+                <img class="poster" src=" <%= serie.poster_path%>" alt="">
+    
+            </td>
+              <td>
+                  <%= serie.title %>
+              </td>
+                  
+              <td>
+                  <%= serie.release_date %>
+      
+              <td>
+                  <%= serie.status %>
+              </td>
+              <td>
+                  <a href="/serie/<%= serie._id %>">DETAILS</a>
+              </td>
+              <td>
+                <form action="/serie/<%= serie._id %>" method="POST">
+                <button>Update</button>
+              </form>
+              
+            </td>
+            <td>
+              <form action="/admin/<%= serie._id %>?_method=DELETE" method="POST" name="serie">
+                <input type="hidden" name="type" value="serie">
+                <button>Delete</button>
+            </form>
+        </td>
+    
+          </tr>
+          <%})%>
+
+    </tbody>
+</table>
+    <%- include('../partials/footer') %>

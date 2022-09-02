@@ -14,8 +14,7 @@ var methodOverride = require('method-override')
 var indexRouter = require('./routes/index');
 var moviesRouter = require('./routes/movies');
 var seriesRouter = require('./routes/series');
-var searchRouter = require('./routes/search');
-var profileRouter = require('./routes/profile');
+var userRouter = require('./routes/user');
 var adminRouter = require('./routes/admin');
 
 var app = express();
@@ -38,13 +37,13 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
 app.use('/', indexRouter);
-app.use('/movies', moviesRouter);
-app.use('/series', seriesRouter);
-app.use(isAuthenticated)
-app.use('/profile',isAuthenticated, profileRouter)
-app.use(isAuthenticated, isAdmin)
-app.use('/search', searchRouter);
-app.use('/admin',isAuthenticated, adminRouter)
+app.use('/user',isAuthenticated, userRouter)
+app.use('/movies',isAuthenticated, moviesRouter);
+app.use('/series',isAuthenticated, seriesRouter);
+app.use('/admin',isAuthenticated,isAdmin ,adminRouter)
+
+
+
 
 
 function isAuthenticated(req,res,next){

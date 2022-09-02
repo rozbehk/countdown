@@ -1,61 +1,26 @@
 <%- include('../partials/header') %>
+<h1>Series List</h1>
+<table>
+  <thead>
+    <tr></tr>
+  </thead>
+  <tbody>
+    <th>poster</th>
+    <th>Title</th>
+    <th>Details</th>
+    <% movies.forEach(function(movie){ %>
+    <tr>
+      <td>
+        <img class="poster" src=" <%=movie.poster_path%>" alt="" />
+      </td>
+      <td><%= movie.title %></td>
+      <td><%= movie.details %></td>
+      <td>
+        <a href="/movies/<%= movie._id %>">DETAILS</a>
+      </td>
+    </tr>
 
-
-    <h1>Movie List</h1>
-    <table>
-        <thead>
-            <tr>
-
-            </tr>
-        </thead>
-        <tbody>
-            <th>Title</th>
-            <th>Genre</th>
-            <th>overview</th>
-            <th>poster</th>
-            <th>release_date</th>
-            <th>video</th>
-            <th>vote</th>
-            <th>Status</th>
-            <% movies.forEach(function(movie){ %>
-                <tr>
-                    <td>
-                        <%= movie.title %>
-                    </td>
-                    <td>
-
-                        <% movie.genres.forEach(function(genre){ %>
-                            <%=genre.name %>
-                                <% }) %>
-                    </td>
-                    <td>
-                        <%= movie.overview %>
-                    </td>
-                    <td>
-                        <img class="poster" src=" <%= movie.poster_path%>" alt="">
-
-                    </td>
-                    <td>
-                        <%= movie.release_date %>
-                    </td>
-                    <td>
-                        <%= movie.video %>
-                    </td>
-                    <td>
-                        <%= movie.vote %>
-                    </td>
-                    <td>
-                        <%= movie.status %>
-                    </td>
-                    <td>
-                        <a href="/admin/<%= movie._id %>">DETAILS</a>
-                    </td>
-
-                </tr>
-                <%})%>
-                    <!-- Close the forEach using EJS here -->
-        </tbody>
-    </table>
-
-    
-    <%- include('../partials/footer') %>
+    <%})%>
+  </tbody>
+</table>
+<%- include('../partials/footer') %>

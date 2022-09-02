@@ -1,7 +1,7 @@
 const tmdbToken = process.env.TMDB_TOKEN
 const rootURL= 'https://api.themoviedb.org/3/search/'
 const fetch = require("node-fetch");
-const movie = require("../models/movie");
+
 
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
 function index(req ,res){
     searchResult = []
     query =''
-      res.render('search', {searchResult,user:req.user ,query });
+      res.render('search', {searchResult});
 }
 
 async function search(req, res){

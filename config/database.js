@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect(process.env.DATABSE_URL, {
+mongoose.connect('mongodb://localhost/movies', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 

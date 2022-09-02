@@ -9,7 +9,18 @@
                 <%=serie.name %>
             </h1>
             <div>
-
+                <% if(user.seriesList.find(element => element.toString() == serie._id.toString())){%>
+                    <form action="/user/<%= serie._id %>?_method=DELETE" method="POST" name="serie">
+                        <input type="hidden" name="ref" value="Series" >
+                        <button>Remove From Wish List</button>
+                    </form>
+                
+                <% }else {  %>
+                    <form action="/user/<%= serie._id%>?_method=PUT" method="POST">
+                        <input type="hidden" name="ref" value="Series" >
+                        <button>Add To The Wish List</button>
+                    </form>
+                <% } %>
             </div>
         </div>
     </div>

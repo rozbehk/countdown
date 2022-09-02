@@ -1,11 +1,13 @@
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-var userSchema = new mongoose.Schema({
+var userSchema = new Schema({
     name: String,
     email: String,
     cohort: String,
     avatar: String,
-    list : Array,
+    moviesList: [{type: Schema.Types.ObjectId, ref: 'Movie'}],
+    seriesList: [{type: Schema.Types.ObjectId, ref: 'Series'}],
     googleId: String,
     isAdmin: Boolean
   }, {

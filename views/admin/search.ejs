@@ -1,6 +1,15 @@
-<%- include('./partials/header') %>
+<%- include('../partials/header') %>
 
-
+<div class="wrapper">
+    <div class="sidebar">
+      <h2>Admin Menu</h2>
+      <ul>
+        <li><a href="/admin/search">Add</a></li>
+        <li><a href="/admin/movies">Movies</a></li>
+        <li><a href="/admin/series">Series</a></li>
+      </ul>
+    </div>
+  </div>
     <h2>Search</h2>
     <form action="/admin/search" method="POST">
         <label>Title:</label>
@@ -57,4 +66,4 @@
         <% }) %>
 
         
-        <%- include('./partials/footer') %>
+        <%- include('../partials/footer') %>

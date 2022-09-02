@@ -100,6 +100,6 @@ function show(req,res){
 }
 
 function deleteOne(req, res){
-    console.log(req)
+    console.log('delete series')
 }
        

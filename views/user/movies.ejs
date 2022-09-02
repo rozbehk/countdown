@@ -1,0 +1,56 @@
+<%- include('../partials/header') %>
+<div class="wrapper">
+  <div class="sidebar">
+    <h2>User Menu</h2>
+    <ul>
+      <li><a href="/user/movies">Movies</a></li>
+      <li><a href="/user/series">Series</a></li>
+    </ul>
+  </div>
+</div>
+<h1>User Movie List</h1>
+<table>
+<tbody>
+<th>poster</th>
+  <th>Title</th>
+  <th>release_date</th>
+  <th>Status</th>
+  
+  <% movies.forEach(function(movie){ %>
+      <tr>
+        <td>
+            <img class="poster" src=" <%= movie.poster_path%>" alt="">
+
+        </td>
+          <td>
+              <%= movie.title %>
+          </td>
+              
+          <td>
+              <%= movie.release_date %>
+  
+          <td>
+              <%= movie.status %>
+          </td>
+          <td>
+              <a href="/movies/<%= movie._id %>">DETAILS</a>
+          </td>
+          <td>
+            <form action="/movie/<%= movie._id %>" method="POST">
+            <button>Update</button>
+          </form>
+          
+        </td>
+        <td>
+          <form action="/user/<%= movie._id %>?_method=DELETE" method="POST" name="movie">
+            <input type="hidden" name="type" value="movie">
+            <button>Delete</button>
+        </form>
+    </td>
+
+      </tr>
+      <%})%>
+          Close the forEach using EJS here
+</tbody>
+</table>
+<%- include('../partials/footer') %>

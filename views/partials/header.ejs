@@ -14,17 +14,17 @@
     />
   </head>
   <nav class="navbar">
-    <div >
-        <a href="/"><img src="/images/logo-no-back.png" alt="" id="logo"></a>
-    </div>
     <div>
+      <img src="/images/logo-no-back.png" alt="" id="logo" />
       <a class="navbar-item" href="/movies">All movies</a>
       <a class="navbar-item" href="/series">All Series</a>
+
     </div>
     <div>
       <% if (user) { %>
-      <a class="navbar-item" href="/profile">my list</a>
-      <% } %> <% if (user && user.isAdmin) { %>
+      <a class="navbar-item" href="/user">my list</a>
+      <% } %> 
+      <% if (user && user.isAdmin) { %>
       <a class="navbar-item" href="/admin">Admin Panel</a>
       <% } %> <% if (user) { %>
       <a href="/logout"
