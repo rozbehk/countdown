@@ -51,7 +51,7 @@ async function search(req, res){
             
         }        
     }
-    res.render('search', {searchResult , type , user:req.user , query : searchString})
+    res.render('search', {searchResult , type , user:req.user , query : searchString , movie})
     
 }
 

@@ -1,6 +1,5 @@
 <%- include('../partials/header') %>
 
-
 <div class="wrapper">
   <div class="sidebar">
     <div class="admin-sidebar">
@@ -8,47 +7,14 @@
       <div>
         <h1>Admin Menu</h1>
         <a class="admin-sidebar-link active" href="/admin/search">Add</a>
-        <a class="admin-sidebar-link" href="/admin/movies">Movies</a>
+        <a class="admin-sidebar-link " href="/admin/movies">Movies</a>
         <a class="admin-sidebar-link" href="/admin/series">Series</a>
+      </div>
+      <div>
+        
       </div>
     </div>
   </div>
-  <div class="admin-body">
-    <input type="text" id="search" onkeyup="livesearch()" placeholder="Search for names..">
-    <table>
-      <tbody>
-      <th>poster</th>
-        <th>Title</th>
-        <th>release_date</th>
-        <th>Status</th>
-        
-        <% movies.forEach(function(movie){ %>
-            <tr class="cards">
-               <td>
-                  <img class="poster-admin" src="https://image.tmdb.org/t/p/w500<%= movie.poster_path%>" alt="">
-               </td>
-                <td class="title"><%= movie.title %></td>
-                <td><%= movie.release_date %></td>
-                <td><%= movie.status %></td>
-                <td><a class="detail-btn" href="/movies/<%= movie._id %>">DETAILS</a></td>
-                <td>
-                  <form action="/movie/<%= movie._id %>" method="POST">
-                  <button class="update-btn">Update</button>
-                </form>                
-              </td>
-              <td>
-                <form action="/admin/<%= movie._id %>?_method=DELETE" method="POST" name="movie">
-                  <input type="hidden" name="type" value="movie">
-                  <button class="delete-btn">X</button>
-              </form>
-             </td>
-            </tr>
-            <%})%>
-      </tbody>
-      </table>
-  </div>
-
-</div>
 
 
   <div class="admin-body">
