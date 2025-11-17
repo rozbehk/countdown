@@ -1,45 +1,68 @@
 <%- include('./partials/header') %>
-<div class="banner"><img src="/images/banner2.jpg" alt=""></div>
-<div>
- 
+
+<!-- Banner Section -->
+<div class="banner">
+  <img src="/images/banner2.jpg" alt="Banner" />
+</div>
+
+<!-- Movies Section -->
+<section class="content-section">
+  <h2 class="section-title">Upcoming Movies</h2>
   <div class="grid-container">
     <% movies.forEach(function(movie){ %>
-      <div class="grid-item">
-        <div>
-          <a  href="/movies/<%= movie._id %>"><img class="poster-small" src="https://image.tmdb.org/t/p/w500<%=movie.poster_path%>" alt=""></a>
-        </div>
-        <div>
-          <div><%= movie.title %></div>
-          <div><%= movie.details %></div>
-          <div class="countdown" id="<%= movie.release_date %>">
-            <h2 id="countdown"></h1>
-            <h2 id="newcountdown"></h2>
+    <div class="card">
+      <a href="/movies/<%= movie._id %>" class="card-link">
+        <div class="card-poster">
+          <img
+            src="https://image.tmdb.org/t/p/w500<%= movie.poster_path %>"
+            alt="<%= movie.title %>"
+          />
+          <div class="card-overlay">
+            <span class="view-details">View Details</span>
           </div>
         </div>
-      </div>
-    <%})%>
-  </div>
-</div>
-  <div>
-    <div class="grid-container">
-        <% series.forEach(function(serie ){ %>
-        <div class="cards grid-item">
-            <div>
-                <a  href="/series/<%= serie._id %>"><img class="poster-small" src="https://image.tmdb.org/t/p/w500<%=serie.poster_path%>" alt=""></a>
-                
+        <div class="card-content">
+          <h3 class="card-title"><%= movie.title %></h3>
+          <div class="card-countdown">
+            <div class="countdown" data-date="<%= movie.release_date %>">
+              <!-- Countdown will be inserted here -->
             </div>
-            <div>
-                <div class="title-small"><%= serie.name %></div>
-                <div>counter</div>
-                <div></div>
-            </div>
+          </div>
         </div>
-        <%})%>
+      </a>
     </div>
+    <% }) %>
   </div>
+</section>
 
-
-
-
+<!-- Series Section -->
+<section class="content-section">
+  <h2 class="section-title">Upcoming Series</h2>
+  <div class="grid-container">
+    <% series.forEach(function(serie){ %>
+    <div class="card">
+      <a href="/series/<%= serie._id %>" class="card-link">
+        <div class="card-poster">
+          <img
+            src="https://image.tmdb.org/t/p/w500<%= serie.poster_path %>"
+            alt="<%= serie.name %>"
+          />
+          <div class="card-overlay">
+            <span class="view-details">View Details</span>
+          </div>
+        </div>
+        <div class="card-content">
+          <h3 class="card-title"><%= serie.name %></h3>
+          <div class="card-countdown">
+            <div class="countdown" data-date="<%= serie.nextEpisodeDate %>">
+              <!-- Countdown will be inserted here -->
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <% }) %>
+  </div>
+</section>
 
 <%- include('./partials/footer') %>

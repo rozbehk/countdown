@@ -7,76 +7,78 @@
       <div>
         <h1>Admin Menu</h1>
         <a class="admin-sidebar-link active" href="/admin/search">Add</a>
-        <a class="admin-sidebar-link " href="/admin/movies">Movies</a>
+        <a class="admin-sidebar-link" href="/admin/movies">Movies</a>
         <a class="admin-sidebar-link" href="/admin/series">Series</a>
-      </div>
-      <div>
-        
       </div>
     </div>
   </div>
 
-
   <div class="admin-body">
-    
     <form class="search-admin" action="/admin/search" method="POST">
       <h2>Search</h2>
-        <label>Title:</label>
-        <input type="text" name="searchString" value="<%=query%>">
-        <select name="type" id="">
-            <option value="movie">movie</option>
-            <option value="tv">series</option>
-        </select>
-        <button>Search</button>  
+      <label>Title:</label>
+      <input type="text" name="searchString" value="<%=query%>" />
+      <select name="type">
+        <option value="movie">Movie</option>
+        <option value="tv">Series</option>
+      </select>
+      <button type="submit">Search</button>
     </form>
-        <% searchResult.forEach(function(result){ %>
-            <div class="episode-detail">
-                <div>
-                   <% if(result.poster_path != null ){ %>
-                        <img class="poster-admin" src="<%= `https://image.tmdb.org/t/p/w500${result.poster_path}` %>" alt="">
-                    <% }else{ %>
-                        <img class="poster-admin" src="/images/nopicture.jpg" alt="">
-                    <% } %>
-                   
-                </div>
-                <% if(type == 'movie'){ %>
-                <div>
-                  <%=  result.title %>
-                </div>
-                <% }else{ %>
-                    <%= result.name %>
-                <% } %>
-                <% if(type == 'movie'){ %>
-                    <div class="countdown" id="<%= result.release_date %>">
-                        <div id="countdown"></div>
-                        <div id="newcountdown"></div>
-                    </div>
-                    <% }else{ %>
-                        <%= result.name %>
-                    <% } %>
-               
-                <div>
-                    <% if(type == 'movie'){ %>
-                        <form action="/movies" method="POST">
-                          <input type="hidden" name="movieId" value="<%=result.id%>">
-                          <input type="submit" value="Add To Website">
-                        </form>
-                  <%  }else{ %>
-                        <form action="/series" method="POST">
-                          <input type="hidden" name="seriesId" value="<%=result.id%>">
-                          <input type="submit" value="Add To Website">
-                        </form>
-                  <%  } %>
-                    
-                </div>
-                
-            </div>
-            
-        <% }) %>
-  </div>
 
+    <div class="search-results">
+      <% searchResult.forEach(function(result){ %>
+      <div class="search-result-item" style="padding-bottom: 20px">
+        <div class="result-poster">
+          <% if(result.poster_path != null){ %>
+          <img
+            class="poster-admin"
+            src="https://media.themoviedb.org/t/p/w94_and_h141_bestv2<%= result.poster_path %>"
+            alt="<%= type == 'movie' ? result.title : result.name %>"
+          />
+          <% } else { %>
+          <img
+            class="poster-admin"
+            src="/images/nopicture.jpg"
+            alt="No poster available"
+          />
+          <% } %>
+        </div>
+
+        <div class="result-info">
+          <h3 class="result-title">
+            <%= type == 'movie' ? result.title : result.name %>
+          </h3>
+
+          <% if(type == 'movie' && result.release_date){ %>
+          <p class="result-date">Release Date: <%= result.release_date %></p>
+          <% } else if(type == 'tv' && result.first_air_date){ %>
+          <p class="result-date">
+            First Air Date: <%= result.first_air_date %>
+          </p>
+          <% } %> <% if(result.overview){ %>
+          <p class="result-overview">
+            <%= result.overview.substring(0, 150) %>...
+          </p>
+          <% } %>
+        </div>
+
+        <div class="result-actions">
+          <% if(type == 'movie'){ %>
+          <form action="/movies" method="POST">
+            <input type="hidden" name="movieId" value="<%=result.id%>" />
+            <button type="submit" class="btn-add">Add To Website</button>
+          </form>
+          <% } else { %>
+          <form action="/series" method="POST">
+            <input type="hidden" name="seriesId" value="<%=result.id%>" />
+            <button type="submit" class="btn-add">Add To Website</button>
+          </form>
+          <% } %>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
 </div>
 
-
-        
-        <%- include('../partials/footer') %>
+<%- include('../partials/footer') %>
